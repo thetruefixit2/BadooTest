@@ -1,4 +1,4 @@
-package com.dabe.baddooooo;
+package com.dabe.baddooooo.app;
 
 import android.app.Application;
 
@@ -8,4 +8,8 @@ import android.app.Application;
  */
 
 public class TheApp extends Application {
+    @Override
+    public void onCreate() {
+        super.onCreate();
+    }
 }

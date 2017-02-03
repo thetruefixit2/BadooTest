@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Baddooooo</string>
+    <string name="loading_in_progress">Loading in progress..</string>
+    <string name="default_title">Title default title</string>
+    <string name="transactions_count">"%d transactions"</string>
+    <string name="default_total">"Total : $1000.54"</string>
 </resources>
