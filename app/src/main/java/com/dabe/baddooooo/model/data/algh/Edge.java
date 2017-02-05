@@ -1,5 +1,7 @@
 package com.dabe.baddooooo.model.data.algh;
 
+import com.dabe.baddooooo.app.AppConfig;
+
 import java.math.BigDecimal;
 
 /**
@@ -43,7 +45,7 @@ public class Edge {
                 "id='" + id + '\'' +
                 ", source=" + source +
                 ", destination=" + destination +
-                ", weight=" + weight +
+                ", weight=" + weight.setScale(AppConfig.SCALE_DIGITS, AppConfig.SCALE_MODE) +
                 '}';
     }
 }

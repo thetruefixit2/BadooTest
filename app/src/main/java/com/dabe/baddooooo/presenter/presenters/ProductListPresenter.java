@@ -24,7 +24,6 @@ public class ProductListPresenter extends BasePresenter<IProductView> {
         initTitle();
     }
 
-
     public void initData() {
         showLoading();
         Subscription sub = dataManager.getProducts()
@@ -52,7 +51,7 @@ public class ProductListPresenter extends BasePresenter<IProductView> {
         addSubscription(sub);
     }
 
-    private void initTitle() {
+    public void initTitle() {
         String title = appContext.getString(R.string.products);
         if (getView() != null) {
             getView().onTitleUpdate(title);

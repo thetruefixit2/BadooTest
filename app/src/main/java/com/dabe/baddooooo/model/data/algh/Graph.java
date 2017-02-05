@@ -23,4 +23,12 @@ public class Graph {
     public List<Edge> getEdges() {
         return edges;
     }
+
+    @Override
+    public String toString() {
+        return "Graph{" +
+                "vertexes=" + vertexes.toString() +
+                ", edges=" + edges.toString() +
+                '}';
+    }
 }

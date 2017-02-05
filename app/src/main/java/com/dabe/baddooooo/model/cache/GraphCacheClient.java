@@ -31,8 +31,10 @@ public class GraphCacheClient implements IGraphCache {
         List<Vertex> result = new ArrayList<>();
         Set<Vertex> combiner = new HashSet<>();
         for (int i = 0; i < rates.size(); i++) {
-            Vertex newVertex = new Vertex(rates.get(i).getFrom(), rates.get(i).getFrom());
-            combiner.add(newVertex);
+            Vertex newVertexFrom = new Vertex(rates.get(i).getFrom(), rates.get(i).getFrom());
+            Vertex newVertexTo = new Vertex(rates.get(i).getTo(), rates.get(i).getTo());
+            combiner.add(newVertexFrom);
+            combiner.add(newVertexTo);
         }
         result.addAll(combiner);
         return result;

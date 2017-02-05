@@ -67,6 +67,12 @@ public class ProductListFragment extends BaseFragment implements IProductView {
         initData();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        presenter.initTitle();
+    }
+
     private void initUI(View view) {
         productList.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new ProductAdapter(new ArrayList<Product>(), this);
