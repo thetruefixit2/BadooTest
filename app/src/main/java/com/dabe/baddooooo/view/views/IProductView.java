@@ -9,9 +9,11 @@ import java.util.List;
  * Project: Baddooooo; Skype: pandamoni1
  */
 
-public interface IProductView {
+public interface IProductView extends IBaseView {
     void onProductSelected(String sku);
 
-    void onUpdateData(List<Product> products);
+    void onTitleUpdate(String title);
+
+    void onProductUpdate(List<Product> products);
 
 }

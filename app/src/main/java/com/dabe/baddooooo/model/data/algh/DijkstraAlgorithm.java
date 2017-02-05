@@ -1,4 +1,4 @@
-package com.dabe.baddooooo.model.data.local;
+package com.dabe.baddooooo.model.data.algh;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -16,12 +16,14 @@ import java.util.Set;
  */
 
 public class DijkstraAlgorithm {
+
     private final List<Vertex> nodes;
     private final List<Edge> edges;
     private Set<Vertex> settledNodes;
     private Set<Vertex> unSettledNodes;
     private Map<Vertex, Vertex> predecessors;
     private Map<Vertex, BigDecimal> distance;
+
 
     public DijkstraAlgorithm(Graph graph) {
         // create a copy of the array so that we can operate on this array
@@ -124,6 +126,17 @@ public class DijkstraAlgorithm {
         // Put it into the correct order
         Collections.reverse(path);
         return path;
+    }
+
+    public BigDecimal convertCurrency(String from, String to, BigDecimal amount) {
+        execute(new Vertex(from, from));
+        List<Vertex> path = getPath(new Vertex(to, to));
+        if (path != null) {
+            for (int i = 0; i < path.size() - 1; i++) {
+                amount = getDistance(path.get(i), path.get(i + 1)).multiply(amount);
+            }
+        }
+        return amount;
     }
 
 }

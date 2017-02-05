@@ -12,4 +12,5 @@ public class AppConst {
     public static final String GSON_SERIALIZER = "gson_serialized";
     public static final String GSON_DESERIALIZER = "gson_deserialized";
 
+    public static final String EXTRA_SKU = "extra_sku";
 }

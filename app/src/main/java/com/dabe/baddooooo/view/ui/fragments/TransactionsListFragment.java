@@ -11,12 +11,15 @@ import android.widget.TextView;
 
 import com.dabe.baddooooo.R;
 import com.dabe.baddooooo.adapters.TransactionAdapter;
+import com.dabe.baddooooo.app.AppConst;
+import com.dabe.baddooooo.app.TheApp;
 import com.dabe.baddooooo.model.data.local.Transaction;
+import com.dabe.baddooooo.presenter.presenters.TransactionListPresenter;
 import com.dabe.baddooooo.view.views.ITransactionView;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,13 +36,24 @@ public class TransactionsListFragment extends BaseFragment implements ITransacti
     @BindView(R.id.transaction_list)
     RecyclerView transactionList;
 
+    @Inject
+    TransactionListPresenter presenter;
+
     private TransactionAdapter adapter;
 
     public static TransactionsListFragment newInstance(String sku) {
         Bundle args = new Bundle();
+        args.putString(AppConst.EXTRA_SKU, sku);
         TransactionsListFragment fragment = new TransactionsListFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        TheApp.getComponent().inject(this);
+        super.onCreate(savedInstanceState);
+        presenter.init(this, getArguments());
     }
 
     @Nullable
@@ -48,6 +62,7 @@ public class TransactionsListFragment extends BaseFragment implements ITransacti
         View view = inflater.inflate(R.layout.fragment_transaction_list, container, false);
         ButterKnife.bind(this, view);
         initUI(view);
+        initListeners();
         return view;
     }
 
@@ -64,11 +79,11 @@ public class TransactionsListFragment extends BaseFragment implements ITransacti
     }
 
     private void initListeners() {
-
+        //none
     }
 
     private void initData() {
-        onTransactionUpdate(mockTransactions());
+        presenter.initData();
     }
 
     @Override
@@ -77,15 +92,35 @@ public class TransactionsListFragment extends BaseFragment implements ITransacti
     }
 
     @Override
-    public void onSkuUpdated(String sku) {
-
+    public void onTitleUpdated(String sku) {
+        if (getActivityCallback() != null) {
+            getActivityCallback().onTitleUpdate(sku);
+        }
     }
 
-    public List<Transaction> mockTransactions() {
-        List<Transaction> transactions = new ArrayList<>();
-        for (int i = 0; i < 500; i++) {
-            transactions.add(new Transaction("SKU" + i, "USD", new BigDecimal(10d), new BigDecimal(11.355d)));
+    @Override
+    public void onTotalUpdate(String total) {
+        totalValue.setText(total);
+    }
+
+    @Override
+    public void onError(String error) {
+        if (getActivityCallback() != null) {
+            getActivityCallback().onError(error);
         }
-        return transactions;
+    }
+
+    @Override
+    public void onShowLoading() {
+        if (getActivityCallback() != null) {
+            getActivityCallback().onShowLoading();
+        }
+    }
+
+    @Override
+    public void onHideLoading() {
+        if (getActivityCallback() != null) {
+            getActivityCallback().onHideLoading();
+        }
     }
 }

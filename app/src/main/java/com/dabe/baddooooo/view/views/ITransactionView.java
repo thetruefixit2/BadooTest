@@ -9,8 +9,11 @@ import java.util.List;
  * Project: Baddooooo; Skype: pandamoni1
  */
 
-public interface ITransactionView {
+public interface ITransactionView extends IBaseView {
     void onTransactionUpdate(List<Transaction> transactions);
 
-    void onSkuUpdated(String sku);
+    void onTitleUpdated(String sku);
+
+    void onTotalUpdate(String total);
+
 }

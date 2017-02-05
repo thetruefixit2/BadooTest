@@ -1,8 +1,11 @@
 package com.dabe.baddooooo.model.cache;
 
 import com.dabe.baddooooo.model.data.local.Product;
+import com.dabe.baddooooo.model.data.local.Transaction;
 
 import java.util.List;
+
+import rx.Observable;
 
 /**
  * Created by Daniil Belevtsev
@@ -10,13 +13,15 @@ import java.util.List;
  */
 
 public interface IBadooCache {
-    boolean isDataExists();
+    boolean isProductsExists();
+
+    boolean isTransactionsExists(String sku);
 
     void saveProducts(List<Product> products);
 
     void saveTransactions(List<Product> transactions);
 
-    void loadProducts();
+    Observable<List<Product>> loadProducts();
 
-    void loadTransactions(String sku);
+    Observable<List<Transaction>> loadTransactions(String sku);
 }

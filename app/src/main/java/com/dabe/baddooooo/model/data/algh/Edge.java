@@ -1,4 +1,4 @@
-package com.dabe.baddooooo.model.data.local;
+package com.dabe.baddooooo.model.data.algh;
 
 import java.math.BigDecimal;
 

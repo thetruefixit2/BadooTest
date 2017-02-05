@@ -42,12 +42,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         final Product product = products.get(position);
         holder.title.setText(product.getSku());
         holder.subtitle.setText(product.getFormattedTransCount());
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (callbackListener != null) {
-                    callbackListener.onProductSelected(product.getSku());
-                }
+        holder.itemView.setOnClickListener(v -> {
+            if (callbackListener != null) {
+                callbackListener.onProductSelected(product.getSku());
             }
         });
     }

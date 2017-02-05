@@ -10,11 +10,15 @@ import android.view.ViewGroup;
 
 import com.dabe.baddooooo.R;
 import com.dabe.baddooooo.adapters.ProductAdapter;
+import com.dabe.baddooooo.app.TheApp;
 import com.dabe.baddooooo.model.data.local.Product;
+import com.dabe.baddooooo.presenter.presenters.ProductListPresenter;
 import com.dabe.baddooooo.view.views.IProductView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +31,10 @@ import butterknife.ButterKnife;
 public class ProductListFragment extends BaseFragment implements IProductView {
 
     @BindView(R.id.product_list)
-    RecyclerView productList;
+    protected RecyclerView productList;
+
+    @Inject
+    protected ProductListPresenter presenter;
 
     private ProductAdapter adapter;
 
@@ -36,6 +43,13 @@ public class ProductListFragment extends BaseFragment implements IProductView {
         ProductListFragment fragment = new ProductListFragment();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        TheApp.getComponent().inject(this);
+        super.onCreate(savedInstanceState);
+        presenter.init(this);
     }
 
     @Override
@@ -60,22 +74,11 @@ public class ProductListFragment extends BaseFragment implements IProductView {
     }
 
     private void initListeners() {
-
+        //none
     }
 
     private void initData() {
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            onUpdateData(mockProducts());
-        }
-    }
-
-    private List<Product> mockProducts() {
-        List<Product> productList = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            productList.add(new Product("SKU" + i, 512));
-        }
-        return productList;
+        presenter.initData();
     }
 
     @Override
@@ -86,11 +89,39 @@ public class ProductListFragment extends BaseFragment implements IProductView {
     }
 
     @Override
-    public void onUpdateData(List<Product> products) {
+    public void onTitleUpdate(String title) {
+        if (getActivityCallback() != null) {
+            getActivityCallback().onTitleUpdate(title);
+        }
+    }
+
+    @Override
+    public void onProductUpdate(List<Product> products) {
         if (adapter != null) {
             adapter.updateProducts(products);
         } else {
             adapter = new ProductAdapter(products, this);
+        }
+    }
+
+    @Override
+    public void onError(String error) {
+        if (getActivityCallback() != null) {
+            getActivityCallback().onError(error);
+        }
+    }
+
+    @Override
+    public void onShowLoading() {
+        if (getActivityCallback() != null) {
+            getActivityCallback().onShowLoading();
+        }
+    }
+
+    @Override
+    public void onHideLoading() {
+        if (getActivityCallback() != null) {
+            getActivityCallback().onHideLoading();
         }
     }
 }

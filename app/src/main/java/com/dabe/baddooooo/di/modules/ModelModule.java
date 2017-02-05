@@ -1,10 +1,8 @@
 package com.dabe.baddooooo.di.modules;
 
 import com.dabe.baddooooo.app.AppConst;
+import com.dabe.baddooooo.mock.MockApiClient;
 import com.dabe.baddooooo.model.api.methods.IBadooApi;
-import com.dabe.baddooooo.model.api.methods.MockApiClient;
-import com.dabe.baddooooo.model.cache.IBadooCache;
-import com.dabe.baddooooo.model.cache.MockCacheClient;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -29,13 +27,6 @@ public class ModelModule {
     IBadooApi provideApi() {
         // some actions with mocks
         return new MockApiClient();
-    }
-
-    @Provides
-    @Singleton
-    IBadooCache provideCache() {
-        // some actions with mocks
-        return new MockCacheClient();
     }
 
     @Provides
